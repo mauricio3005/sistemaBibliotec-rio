@@ -9,5 +9,5 @@ import java.util.List;
 public interface LivroRepo extends JpaRepository<Livro , Long> {
     Livro findByTitulo(String titulo);
     List<Livro> findByEstaEmprestadoTrue();
-
+    List<Livro> findByAutor(Autor autor);
 }
