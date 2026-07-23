@@ -3,11 +3,10 @@ package com.mauricio.sistemanibliotecario.service;
 import com.mauricio.sistemanibliotecario.exception.BookNotFound;
 import com.mauricio.sistemanibliotecario.model.Autor;
 import com.mauricio.sistemanibliotecario.model.Livro;
+import com.mauricio.sistemanibliotecario.model.Usuario;
 import com.mauricio.sistemanibliotecario.repo.LivroRepo;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class LivroService {
         return livroRepo.findById(id);
     }
 
-    public Livro encontrarPorNome(String nome){
+    public Optional<Livro> encontrarPorNome(String nome){
         return livroRepo.findByTitulo(nome);
     }
 
@@ -45,8 +44,12 @@ public class LivroService {
         return livroRepo.findAll();
     }
 
+    public List<Livro> encontrarEmprestadosAUsuario(Usuario user){
+        return livroRepo.findByEmprestadoA(user);
+    }
+
     public Livro deleteById(Long id){
-        if(this.encontrarPorId(id).isEmpty()){
+        if(this.encontrarPorId(id).isPresent()){
             livroRepo.deleteById(id);
             return null;
         }

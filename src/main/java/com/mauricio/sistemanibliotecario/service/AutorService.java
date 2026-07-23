@@ -26,7 +26,7 @@ public class AutorService {
         return repo.findById(id);
     }
 
-    public Autor encontrarPorNome(String nome){
+    public Optional<Autor> encontrarPorNome(String nome){
         return repo.findByNome(nome);
     }
 
@@ -35,7 +35,7 @@ public class AutorService {
     }
 
     public Autor deleteById(Long id){
-        if(this.encontrarPorId(id).isEmpty()) {
+        if(this.encontrarPorId(id).isPresent()) {
             repo.deleteById(id);
             return null;
         }
