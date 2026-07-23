@@ -29,6 +29,13 @@ public class UsuarioService {
         return repo.findById(id);
     }
 
+    public Usuario atualizarUsuario(Long id, Usuario usuario){
+        Usuario usuarioExistente = this.encontrarPorId(id).orElseThrow(UserNotFound::new);
+        usuarioExistente.setNome(usuario.getNome());
+        repo.save(usuarioExistente);
+        return usuarioExistente;
+    }
+
     public Usuario deletarUsuarioPorId(Long id){
         if(this.encontrarPorId(id).isPresent()){
             repo.deleteById(id);
