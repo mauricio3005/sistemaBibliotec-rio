@@ -1,11 +1,11 @@
 package com.mauricio.sistemanibliotecario.repo;
 
-import com.mauricio.sistemanibliotecario.model.Livro;
 import com.mauricio.sistemanibliotecario.model.Usuario;
-import org.hibernate.boot.models.JpaAnnotations;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioRepo extends JpaRepository<Usuario, Long> {
+
+    Optional<Usuario> getByNome(String nome);
 }
