@@ -1,9 +1,6 @@
 package com.mauricio.sistemanibliotecario.service;
 
-import com.mauricio.sistemanibliotecario.exception.BookNotFound;
-import com.mauricio.sistemanibliotecario.exception.BookWithSomeoneElse;
 import com.mauricio.sistemanibliotecario.exception.UserNotFound;
-import com.mauricio.sistemanibliotecario.model.Livro;
 import com.mauricio.sistemanibliotecario.model.Usuario;
 import com.mauricio.sistemanibliotecario.repo.UsuarioRepo;
 import org.springframework.stereotype.Service;
@@ -42,36 +39,6 @@ public class UsuarioService {
             return null;
         }
         throw new UserNotFound();
-    }
-
-    public void receberLivro(Livro livro, Usuario usuario){
-        if(usuario == null || usuario.getId() == null){
-            throw new UserNotFound();
-        }
-        if(livro == null){
-            throw new BookNotFound();
-        }
-        if(!livro.isEstaEmprestado()){
-            if(repo.findById(usuario.getId()).isPresent()){
-                livro.setEmprestadoA(usuario);
-                return;
-            } else throw new UserNotFound();
-        }
-        else throw new BookWithSomeoneElse();
-    }
-
-    public void devolverLivro(Livro livro, Usuario usuario) {
-        if(usuario == null || usuario.getId() == null){
-            throw new UserNotFound();
-        }
-        if(livro == null){
-            throw new BookNotFound();
-        }
-        Usuario emprestadoA = livro.getEmprestadoA();
-        if (emprestadoA != null && emprestadoA.getId().equals(usuario.getId())) {
-            livro.setEmprestadoA(null);
-            return;
-        } else throw new BookWithSomeoneElse();
     }
 
     public List<Usuario> verTodos(){
