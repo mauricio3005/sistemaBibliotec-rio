@@ -34,10 +34,17 @@ public class AutorService {
         return repo.findAll();
     }
 
-    public Autor deleteById(Long id){
+    public Autor atualizarAutor(Long id, Autor autor){
+        Autor autorExistente = this.encontrarPorId(id).orElseThrow(AuthorNotFound::new);
+        autorExistente.setNome(autor.getNome());
+        repo.save(autorExistente);
+        return autorExistente;
+    }
+
+    public void deleteById(Long id){
         if(this.encontrarPorId(id).isPresent()) {
             repo.deleteById(id);
-            return null;
+            return;
         }
         throw new AuthorNotFound();
     }
