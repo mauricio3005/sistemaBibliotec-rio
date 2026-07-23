@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AutorRepo extends JpaRepository<Autor, Long> {
 
+    public Autor findByNome(String nome);
 }
