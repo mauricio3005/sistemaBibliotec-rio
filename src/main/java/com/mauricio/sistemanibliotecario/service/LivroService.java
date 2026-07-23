@@ -48,6 +48,15 @@ public class LivroService {
         return livroRepo.findByEmprestadoA(user);
     }
 
+    public Livro atualizarLivro(Long id, Livro livro){
+        Livro livroExistente = this.encontrarPorId(id).orElseThrow(BookNotFound::new);
+        livroExistente.setTitulo(livro.getTitulo());
+        livroExistente.setAutor(livro.getAutor());
+        livroExistente.setGeneroLivro(livro.getGeneroLivro());
+        livroRepo.save(livroExistente);
+        return livroExistente;
+    }
+
     public Livro deleteById(Long id){
         if(this.encontrarPorId(id).isPresent()){
             livroRepo.deleteById(id);
